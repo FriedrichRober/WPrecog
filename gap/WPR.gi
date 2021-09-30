@@ -170,7 +170,7 @@ end);
 
 InstallGlobalFunction( WPR_SimpleSingleComponent,
 function(ri, simpleGroupFamily, L, m, eps)
-	local gens, P, logEps, l1, l2, delta, i, hints, hintsForT;
+	local gens, gensB, P, logEps, l1, l2, delta, i, hints, hintsForT;
 	gens := ri!.gensHmem;
 	P := WPR_SimpleSingleComponentSuccessProb(simpleGroupFamily);
 	if P = fail then
@@ -179,20 +179,25 @@ function(ri, simpleGroupFamily, L, m, eps)
 	logEps := Log(Float(1 / eps));
 	l1 := Int(Ceil(logEps/Log(Float(1 / (1 - P[1])))));
 	# TODO: we make bound m tighter after l1 steps. Thus delta could be much smaller.
+	# TODO: the contant factors in l2 are too large!
 	l2 := Int(Ceil(Maximum(Float(2 / P[2] * m), logEps * 8 / P[2])));
 	delta := eps / (l1 + l2);
 	# go down into base group
 	for i in [1 .. l1] do
 		gens := WPR_SimpleSingleComponentBaseStep(gens, L, delta);
 	od;
+	# Change: Compute Normal Closure in a subgroup <gensB> of the base group
+	#		  instead of the preceeding group in the chain.
+	#  		  This leads to the same complexity analysis, but we have fewer generators.
 	# TODO: better hints system
-	hints := WPR_SimpleSingleComponentHintsFirstPhase(simpleGroupFamily, gens, L, m);
+	gensB := gens;
+	hints := WPR_SimpleSingleComponentHintsFirstPhase(ri, simpleGroupFamily, gensB, L, m);
 	m := hints.m;
 	hintsForT := hints.hintsForT;
 	l2 := Int(Ceil(Maximum(Float(2 / P[2] * m), logEps * 8 / P[2])));
 	# go down into single component group
 	for i in [1 .. l2] do
-		gens := WPR_SimpleSingleComponentBaseStep(gens, L, delta);
+		gens := WPR_SimpleSingleComponentBaseStep(gensB, L, delta);
 	od;
 	# TODO: adjust hints after getting to a single component group
 	# hintsForT := WPR_SimpleSingleComponentHintsSecondPhase(hintsForT, simpleGroupFamily, gens, L, m);
@@ -200,8 +205,21 @@ function(ri, simpleGroupFamily, L, m, eps)
 end);
 
 InstallGlobalFunction( WPR_SimpleSingleComponentHintsFirstPhase,
-function(simpleGroupFamily, gens, L, m)
-	local hintsForT;
+function(ri, simpleGroupFamily, gens, L, m)
+	local G, S, orbs, n, M, hintsForT;
+	G := ri!.Grp;
+	S := Group(gens);
+	if IsPrimitive(G) then
+		# TODO: if G is primitive use O'Nan Scott Type for bounds.
+		# Suppose this is in product action
+		orbs := OrbitsDomain(S);
+		n := Minimum(List(orbs, Length));
+		M := Log(NrMovedPoints(G), n);
+		if n^M <> NrMovedPoints(G) then
+			Error("TODO: this cannot be a wreath product in product action");
+		fi;
+		m := Minimum(m, M);
+	fi;
 	if simpleGroupFamily = "Alt" then
 		# TODO: compute some orders of random elms
 		hintsForT := rec(upperDegreeBound := L);
