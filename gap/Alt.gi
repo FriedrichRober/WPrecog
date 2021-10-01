@@ -94,17 +94,21 @@ function(g, ri, stdGensS, t, projFunc, lambda)
 	return ErrorNoReturn("TODO");
 end);
 
+# TODO: Do we need to take care of SLP failures?
 InstallGlobalFunction(WPR_StandardGensSingleComponentAlt,
 function(ri, eps, simpleGroupFamily, lambda, stdGensS, slpFuncForT, t, riH, imagesG, W)
 	local Wmem, stdGensW, H, m, n, stdGensH, stdGensSW1, stdGensSW, wMem, wList, vMem, vList, pi, b, c, g, i, slpToPi, slpToG, repeats, stdGens, groupData, stdGensT, gens;
 	H := Grp(riH);
 	m := NrMovedPoints(H);
 	n := NrMovedPoints(Image(lambda));
+	Info(WPR_Info, 2, "base component K has socle Alt(", n, ")");
 	if ForAll(imagesG, g -> ForAll([1 .. m], i -> SignPerm(g[i]) = 1)) then
+		Info(WPR_Info, 2, "\tK = Alt(", n, ")");
 		stdGens := stdGensS;
 		groupData := rec(family := "Alt", degree := n);
 		return rec(stdGens := stdGens, groupData := groupData);
 	fi;
+	Info(WPR_Info, 2, "K = Sym(", n, ")");
 	if IsEvenInt(n) then
 		stdGensT := [(1,2,3), (1,2)*CycleFromList([3 .. n])];
 	else
@@ -121,8 +125,10 @@ function(ri, eps, simpleGroupFamily, lambda, stdGensS, slpFuncForT, t, riH, imag
 	Wmem := Group(stdGensW);
 	b := EmptyPlist(m);
 	repeats := 0;
+	Info(WPR_Info, 3, "Start Iteration:");
 	while repeats < m + Int(Ceil(Log2(Float(1/eps)))) do
 		repeats := repeats + 1;
+		Info(WPR_Info, 3, "\tStep ", repeats);
 		wMem := PseudoRandom(Wmem);
 		wList := ListWreathProductElement(W, StripMemory(wMem));
 		pi := wList[m + 1];
@@ -146,6 +152,7 @@ function(ri, eps, simpleGroupFamily, lambda, stdGensS, slpFuncForT, t, riH, imag
 					wMem := b[i] ^ -1 * wMem;
 				else
 					b[i] := wMem;
+					Info(WPR_Info, 3, "\tSet b_i for i = ", i);
 					break;
 				fi;
 			fi;
@@ -155,6 +162,7 @@ function(ri, eps, simpleGroupFamily, lambda, stdGensS, slpFuncForT, t, riH, imag
 			break;
 		fi;
 	od;
+	Info(WPR_Info, 3, "Finished Iteration");
 	if IsBound(b[1]) then
 		c := stdGensSW[1,2] * stdGensSW[1,1];
 		if IsEvenInt(n) then
@@ -165,5 +173,6 @@ function(ri, eps, simpleGroupFamily, lambda, stdGensS, slpFuncForT, t, riH, imag
 		groupData := rec(family := "Sym", degree := n);
 		return rec(stdGens := stdGens, groupData := groupData);
 	fi;
+	Info(WPR_Info, 2, "Couldn't find standard generators!");
 	return TemporaryFailure;
 end);
