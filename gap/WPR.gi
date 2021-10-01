@@ -4,6 +4,11 @@
 # Implementations
 #
 
+# Level 1: Show Current Step in Main Recognition Method
+# Level 2: Show Important Bounds in Submethods
+# Level 3: Show Progress of Iterations
+BindGlobal("WPR_Info", NewInfoClass("WPR_Info"));
+
 InstallGlobalFunction( WreathProductRecognition,
 function(ri, G, simpleGroupFamily...)
 	local N, L, m, eps, simpleCompData, origGensS, hintsForT,
@@ -18,6 +23,8 @@ function(ri, G, simpleGroupFamily...)
 	 #### ------------------------ ####
 	####################################
 
+	Info(WPR_Info, 1, "Step 0: Initialize bounds for wreath product recognition");
+	Info(WPR_Info, 2, "--------------------------------------------------------");
 	if Length(simpleGroupFamily) = 0 then
 		# TODO: try to deduce simple group family or set this to unknown.
 		simpleGroupFamily := "Alt";
@@ -36,6 +43,7 @@ function(ri, G, simpleGroupFamily...)
 		ErrorNoReturn("TODO: Implement matrix and projective representation");
 	fi;
 	eps := 1/100;
+	Info(WPR_Info, 2, "eps = ", eps);
 	# TODO: maybe call subprocedures with smaller error bound?
 
 	##################################
@@ -48,6 +56,9 @@ function(ri, G, simpleGroupFamily...)
 	# Step 1  : Compute a single-component group S isomorphic to T  #
 	# ------------------------------------------------------------- #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 1 : ", "Compute a single-component group S isomorphic to T");
+	Info(WPR_Info, 2, "---------------------------------------------------------------");
 	# TODO: if G is primitive, we could compute a single component group as a socle factor directly.
 	simpleCompData := WPR_SimpleSingleComponent(ri, simpleGroupFamily, L, m, eps);
 	# elms with memory in G
@@ -61,6 +72,9 @@ function(ri, G, simpleGroupFamily...)
 	# Step 2  : Compute standard generators in S isomorphic to T  #
 	# ----------------------------------------------------------- #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 2 : ", "Compute standard generators in S isomorphic to T");
+	Info(WPR_Info, 2, "-------------------------------------------------------------");
 	# TODO: give hints to recog node (G is almost simple, etc.) and abort if assumptions do not hold.
 	# TODO: we need an isomorphism from S to T or maybe an embedding from S to the standard copy of Aut(T) > T.
 	# TODO: we need very special nice generators.
@@ -71,6 +85,7 @@ function(ri, G, simpleGroupFamily...)
 	# elms with memory in G
 	stdGensS := recogData.stdGensS;
 	lambda := recogData.lambda;
+	Info(WPR_Info, 2, "T = ", simpleGroupFamily);
 
 	#######################################
 	 #### --------------------------- ####
@@ -82,15 +97,22 @@ function(ri, G, simpleGroupFamily...)
 	# Step 3  : Compute a faithful H-set { S ^ {t_1}, ..., S ^ {t_m} }  #
 	# ----------------------------------------------------------------- #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 3 : ", "Compute a faithful H-set { S ^ {t_1}, ..., S ^ {t_m} }");
+	Info(WPR_Info, 2, "-------------------------------------------------------------------");
 	domainData := WPR_TopGroupDomain(ri, stdGensS);
 	t := domainData.t;
 	domain := domainData.domain;
+	Info(WPR_Info, 2, "m = ", Length(t));
 	m := Length(domain);
 
 	# ------------------------------------------------ #
 	# Step 4  : Compute projection onto top component  #
 	# ------------------------------------------------ #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 4 : ", "Compute projection onto top component");
+	Info(WPR_Info, 2, "--------------------------------------------------");
 	projFunc := function(g)
 		return WPR_TopComponentImage(StripMemory(g), ri, StripMemory(domain));
 	end;
@@ -105,9 +127,16 @@ function(ri, G, simpleGroupFamily...)
 	# Step 5 : theoretically define single-component group Shat > S isomorphic to K  #
 	# ------------------------------------------------------------------------------ #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 5 : ", "theoretically define single-component group Shat > S isomorphic to K");
+	Info(WPR_Info, 2, "---------------------------------------------------------------------------------");
+
 	# --------------------------------------------------------------- #
 	# Step 6 : theoretically define isomorphism phi from G to K wr H  #
 	# --------------------------------------------------------------- #
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 6 : ", "theoretically define isomorphism phi from G to K wr H");
+	Info(WPR_Info, 2, "------------------------------------------------------------------");
 
 	#############################
 	 #### ----------------- ####
@@ -119,6 +148,9 @@ function(ri, G, simpleGroupFamily...)
 	# Step 7  : Compute images of all generators of G under isomorphism phi  #
 	# ---------------------------------------------------------------------- #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 7 : ", "Compute images of all generators of G under isomorphism phi");
+	Info(WPR_Info, 2, "------------------------------------------------------------------------");
 	W := WreathProduct(AutT, SymmetricGroup(m));
 	phiImageFunc := function(g)
 		return WPR_Image(StripMemory(g), ri, simpleGroupFamily, StripMemory(stdGensS), StripMemory(t), projFunc, lambda);
@@ -135,6 +167,9 @@ function(ri, G, simpleGroupFamily...)
 	# Step 8  : Recognise top group H  #
 	# -------------------------------- #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 8 : ", "Recognise top group H");
+	Info(WPR_Info, 2, "----------------------------------");
 	# TODO: take care of trivial generators
 	H := Group(List(ri!.gensHmem, g -> projFunc(g)));
 	# TODO: give hints to recog node (H is transitive, etc.) and abort if assumptions do not hold.
@@ -144,6 +179,9 @@ function(ri, G, simpleGroupFamily...)
 	# Step 9  : Compute standard generators of base component  #
 	# -------------------------------------------------------- #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 9 : ", "Compute standard generators of base component");
+	Info(WPR_Info, 2, "----------------------------------------------------------");
 	stdGensData := WPR_StandardGensSingleComponent(ri, eps, simpleGroupFamily, lambda, stdGensS, slpFuncForT, t, riH, imagesG, W);
 	stdGensBaseComponent := stdGensData.stdGens;
 	groupDataBaseComponent := stdGensData.groupData;
@@ -154,6 +192,9 @@ function(ri, G, simpleGroupFamily...)
 	# Step 10 : Compute standard generators of top component  #
 	# ------------------------------------------------------- #
 
+	Info(WPR_Info, 2, "\n");
+	Info(WPR_Info, 1, "Step 10 : ", "Compute standard generators of top component");
+	Info(WPR_Info, 2, "----------------------------------------------------------");
 	stdGensTop := WPR_StandardGensTopGroup(ri, stdGensBase, imagesG, slpFuncForK, riH);
 
 	#############################
@@ -176,16 +217,26 @@ function(ri, simpleGroupFamily, L, m, eps)
 	if P = fail then
 		return NeverApplicable;
 	fi;
+	Info(WPR_Info, 2, "Success Probabilities for a step in each phase:");
+	Info(WPR_Info, 2, "\tP_1 = ", P[1]);
+	Info(WPR_Info, 2, "\tP_2 = ", P[2]);
 	logEps := Log(Float(1 / eps));
 	l1 := Int(Ceil(logEps/Log(Float(1 / (1 - P[1])))));
 	# TODO: we make bound m tighter after l1 steps. Thus delta could be much smaller.
 	# TODO: the contant factors in l2 are too large!
 	l2 := Int(Ceil(Maximum(Float(2 / P[2] * m), logEps * 8 / P[2])));
 	delta := eps / (l1 + l2);
+	Info(WPR_Info, 2, "Bounds for first phase:");
+	Info(WPR_Info, 2, "\tm = ", m);
+	Info(WPR_Info, 2, "\tl_1 = ", l1);
+	Info(WPR_Info, 2, "\tdelta = ", delta);
 	# go down into base group
+	Info(WPR_Info, 3, "Start Iteration for Phase 1:");
 	for i in [1 .. l1] do
+		Info(WPR_Info, 3, "\tStep ", i);
 		gens := WPR_SimpleSingleComponentBaseStep(gens, L, delta);
 	od;
+	Info(WPR_Info, 3, "Finished Iteration");
 	# Change: Compute Normal Closure in a subgroup <gensB> of the base group
 	#		  instead of the preceeding group in the chain.
 	#  		  This leads to the same complexity analysis, but we have fewer generators.
@@ -195,10 +246,17 @@ function(ri, simpleGroupFamily, L, m, eps)
 	m := hints.m;
 	hintsForT := hints.hintsForT;
 	l2 := Int(Ceil(Maximum(Float(2 / P[2] * m), logEps * 8 / P[2])));
+	Info(WPR_Info, 2, "Bounds for second phase:");
+	Info(WPR_Info, 2, "\tm = ", m);
+	Info(WPR_Info, 2, "\tl_2 = ", l2);
+	Info(WPR_Info, 2, "\tdelta = ", delta);
 	# go down into single component group
+	Info(WPR_Info, 3, "Start Iteration for Phase 2:");
 	for i in [1 .. l2] do
+		Info(WPR_Info, 3, "\tStep ", i);
 		gens := WPR_SimpleSingleComponentBaseStep(gensB, L, delta);
 	od;
+	Info(WPR_Info, 3, "Finished Iteration");
 	# TODO: adjust hints after getting to a single component group
 	# hintsForT := WPR_SimpleSingleComponentHintsSecondPhase(hintsForT, simpleGroupFamily, gens, L, m);
 	return rec(origGensS := gens, hintsForT := hintsForT);
@@ -357,12 +415,16 @@ function(ri, stdGensBase, imagesG, slpFuncForK, riH)
 	m := NrMovedPoints(H);
 	l := Length(imagesG);
 	origGensH := EmptyPlist(l);
+	Info(WPR_Info, 3, "Start Iteration:");
 	for k in [1 .. l] do
+		Info(WPR_Info, 3, "\tStep ", k);
 		g := ri!.gensHmem[k];
 		gList := imagesG[k];
+		# TODO: do we need to take care of failures?
 		baseElm := Product([1 .. m], i -> ResultOfStraightLineProgram(slpFuncForK(gList[i]), stdGensBase[i]));
 		origGensH[k] := baseElm ^ -1 * g;
 	od;
+	Info(WPR_Info, 3, "Finished Iteration");
 	return CalcNiceGens(riH, origGensH);
 end);
 
