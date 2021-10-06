@@ -60,7 +60,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component",
+  LongTitle := "WreathProductRecognition provides constructive recognition algorithms for wreath products with an almost simple base component",
 ),
 
 Dependencies := rec(
