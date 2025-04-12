@@ -3,7 +3,7 @@ function(origGensS, simpleGroupFamily, hintsForT, eps)
 	local S, riS, recogData, isoData, degree, T, AutT, slpFuncForT,
         swapSLP, slpToStdGensS, stdGensS, lambdaImageFunc, lambdaPreImageFunc, lambda;
     S := Group(StripMemory(origGensS));
-    riS := EmptyRecognitionInfoRecord(rec(), S, false);
+    riS := RecogNode(S);
 	recogData := RECOG.RecogniseSnAn(riS, eps, hintsForT.upperDegreeBound);
 	if not IsRecord(recogData) then
 		return TemporaryFailure;

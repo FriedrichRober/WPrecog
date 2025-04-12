@@ -1,7 +1,7 @@
-[![CI](https://github.com/FriedrichRober/WPR/workflows/CI/badge.svg)](https://github.com/FriedrichRober/WPR/actions?query=workflow%3ACI+branch%3Amaster)
-[![Code Coverage](https://codecov.io/gh/FriedrichRober/WPR/coverage.svg?branch=master&token=)](https://codecov.io/gh/FriedrichRober/WPR)
+[![CI](https://github.com/FriedrichRober/WPrecog/workflows/CI/badge.svg)](https://github.com/FriedrichRober/WPrecog/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code Coverage](https://codecov.io/gh/FriedrichRober/WPrecog/coverage.svg?branch=master&token=)](https://codecov.io/gh/FriedrichRober/WPrecog)
 
-# The GAP package WPR
+# The GAP package WPrecog
 
 TODO: add a description of your package; perhaps also instructions how how to
 install and use it, resp. where to find out more
