@@ -1,5 +1,5 @@
 #
-# WPR: WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component
+# WPrecog: WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component
 #
 # This file is a script which compiles the package manual.
 #

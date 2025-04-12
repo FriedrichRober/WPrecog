@@ -1,0 +1,27 @@
+
+EmbedGenerator := function(g, m)
+    // Embed g ∈ GL(n, F) into GL(m, F) as top-left block
+    n := Nrows(g);
+    I := IdentityMatrix(BaseRing(g), m);
+    for i in [1..n] do
+        for j in [1..n] do
+            I[i][j] := g[i][j];
+        end for;
+    end for;
+    return I;
+end function;
+
+d := 4;
+q := 7;
+K := GL(d, q);
+m := 5;
+H := SymmetricGroup(m);
+W := WreathProduct(K, H);
+D := d*m + 2;
+P := GL(D, q);
+W2 := MatrixGroup<D, GF(q) | [EmbedGenerator(g, D) : g in Generators(W)]>; 
+c := Random(GL(D, q));
+G := MatrixGroup<D, GF(q)|Random(W2), Random(W2)>^(c^(-1));
+
+time IsPrimitive(G);
+time Blocks(G);

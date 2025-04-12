@@ -1,5 +1,5 @@
 #
-# WPR: WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component
+# WPrecog: WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component
 #
 # This file contains package meta data. For additional information on
 # the meaning and correct usage of these fields, please consult the
@@ -8,7 +8,7 @@
 #
 SetPackageInfo( rec(
 
-PackageName := "WPR",
+PackageName := "WPrecog",
 Subtitle := "WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component",
 Version := "0.1",
 Date := "09/06/2021", # dd/mm/yyyy format
@@ -30,10 +30,10 @@ Persons := [
 
 SourceRepository := rec(
     Type := "git",
-    URL := "https://github.com/FriedrichRober/WPR",
+    URL := "https://github.com/FriedrichRober/WPrecog",
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := "https://FriedrichRober.github.io/WPR/",
+PackageWWWHome  := "https://FriedrichRober.github.io/WPrecog/",
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
@@ -55,7 +55,7 @@ Status := "dev",
 AbstractHTML   :=  "",
 
 PackageDoc := rec(
-  BookName  := "WPR",
+  BookName  := "WPrecog",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
