@@ -19,9 +19,11 @@ BindGlobal("WPR_InitOptions", function(ri, data, options)
             N := NrMovedPoints(G);
             F := Collected(PartialFactorization(N, 0));
             M := F[1][2]; # upper bound for top degree
-            if ForAll(F, f -> f[2] = M) then
+            if options.action = fail and ForAll(F, f -> f[2] = M) and M < 10 then
                 options.action := "product action";
                 isPrim := true;
+            fi;
+            if options.action = "product action" then
                 Info(WPR_Info, 2, "Assume product action on n^m points with m <= ", M);
             fi;
         fi;

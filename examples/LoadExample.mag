@@ -1,0 +1,4 @@
+
+load "difficultPermPrimitiveLargeBase.mag";
+
+time riG := CompositionTree(G);

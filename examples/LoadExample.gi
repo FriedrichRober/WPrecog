@@ -2,22 +2,7 @@ LoadPackage("WPE", false);
 LoadPackage("WPrecog", false);
 
 # Permutation Group : Product Action
-m := 5;
-l := 15;
-k := 1;
-l > 2*m*k^2; # Is Large Base?
-n := Binomial(l, k);
-n^m;
-K := Action(AlternatingGroup(l), Combinations([1..l],k), OnSets);
-H := Random(AllTransitiveGroups(NrMovedPoints, m));
-
-# Construct wreath product
-P := SymmetricGroup(n^m);
-W := WreathProductProductAction(K, H);;
-
-# Random conjugation
-c := PseudoRandom(P);;
-G := W^(c^(-1));;
+Read("examples/difficultPermPrimitiveLargeBase.gi");;
 
 # Recognition
 output := RecogniseWreathProduct(RecogNode(G), rec(

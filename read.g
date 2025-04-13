@@ -10,6 +10,7 @@
 BindGlobal("WPR_Info", NewInfoClass("WPR_Info"));
 SetInfoLevel(WPR_Info, 3);
 
+ReadPackage( "WPrecog", "gap/Utils.gi");
 ReadPackage( "WPrecog", "gap/Quick.gi");
 
 ReadPackage( "WPrecog", "gap/subroutines/Init.gi");

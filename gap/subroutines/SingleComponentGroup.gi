@@ -46,7 +46,7 @@ BindGlobal("WPR_SingleComponentGroup", function(ri, data, options)
     timer := Runtime();
 	S := SingleComponentGroup(ri, options.forSingleComponentGroup); # with memory
     timer := Runtime() - timer;
-    Info(WPR_Info, 1, "Time : ", timer / 1000.0, " seconds");
+    Info(WPR_Info, 1, "Time: ", FormatFloat(timer / 1000.0), " seconds");
     data.S := S;
     return true;
 end);
@@ -87,6 +87,7 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
     options := rec(
         # -- Error control -------------------------------------------------------------------------
         heuristic := true,                      # whether to use heuristic values instead of explicit ones
+        lazy := true,                           # whether to try at most 2 log(m) tries
         eps := 1/100,                           # error probability
         M := 20,                                # upper bound for degree of top group
 
@@ -156,13 +157,12 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
         n := options.n1,
         primes := primes,
     );
-    Info(WPR_Info, 2, "Bounds for Phase 1:");
-	Info(WPR_Info, 2, "\tl_1 = ", l1);
-	Info(WPR_Info, 3, "Start Iteration for Phase 1...");
+    Info(WPR_Info, 2, "Number of iterations for Phase 1: ", l1);
+	Info(WPR_Info, 3, "Start iteration for Phase 1...");
     for i in [1 .. l1] do
         S := WPR_SCG_Descend(S, S, descendOptions);
     od;
-    Info(WPR_Info, 3, "...Finished Iteration for Phase 1");
+    Info(WPR_Info, 3, "...Finished iteration for Phase 1");
 
     # -- Update Parameters --------------------------------------------------
     B := S; # supposedly inside base group
@@ -172,17 +172,19 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
 
     # -- Phase 2 ------------------------------------------------------------
     l2 := WPR_SCG_NrIterations2(R[2], options.M, options.eps/2);
+    if options.lazy then
+        l2 := Minimum(l2, Int(Ceil(2*Log(Float(options.M)))));
+    fi;
     if options.heuristic then
-        l2 := Minimum(l2, Int(Ceil(2*Log(Float(options.M)))), options.l2);
+        l2 := Minimum(l2, options.l2);
     fi;
     descendOptions := rec(
         randomElementGenerator := options.randomElementGenerator,
         n := options.n2,
         primes := primes,
     );
-    Info(WPR_Info, 2, "Bounds for Phase 2:");
-	Info(WPR_Info, 2, "\tl_2 = ", l2);
-    Info(WPR_Info, 3, "Start Iteration for Phase 2...");
+    Info(WPR_Info, 2, "Number of iterations for Phase 2: ", l2);
+    Info(WPR_Info, 3, "Start iteration for Phase 2...");
     for i in [1 .. l2] do
         if options.useBaseGroupInPhase2 then
             S := WPR_SCG_Descend(S, B, descendOptions);
@@ -190,7 +192,7 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
             S := WPR_SCG_Descend(S, S, descendOptions);
         fi;
     od;
-    Info(WPR_Info, 3, "...Finished Iteration for Phase 2");
+    Info(WPR_Info, 3, "...Finished iteration for Phase 2");
 
     # -- Post ---------------------------------------------------------------
     # As a pre-caution, take normal closure in base group, if we descended too far

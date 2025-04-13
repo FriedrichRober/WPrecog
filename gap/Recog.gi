@@ -27,7 +27,7 @@
 #############################################################################
 
 BindGlobal( "RecogniseWreathProduct", function(args...)
-    local ri, userOptions, options, name, data, res, output;
+    local ri, userOptions, options, name, timer, data, res, output;
 
     # =======================================================================
     # Input extraction
@@ -81,6 +81,7 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
 
     data := rec(currentStep := 0);
     output := rec(res := fail, data := data, options := options);
+    timer := Runtime();
 
     # Init options
     res := WPR_InitOptions(ri, data, options);
@@ -107,6 +108,18 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
         return output;
     fi;
 
+    # TODO: handle this cleaner
+    if IsMatrixGroup(Grp(ri)) then
+        if options.action = "imprimitive action" then
+            if Dimension(data.domain[1]) * data.m = DimensionOfMatrixGroup(Grp(ri)) then
+                data.B := Concatenation(List(data.domain, Basis))^(-1);
+                output.res := true;
+                return output;
+            fi;
+        fi;
+        Error("TODO");
+    fi;
+
     # Recognise Base Component?
     if options.recogniseComponents
         and not options.recogniseBaseComponentBeforeDomain
@@ -119,6 +132,10 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
     if res = fail then
         return output;
     fi;
+
+    timer := Runtime() - timer;
+    Info(WPR_Info, 1, "===============================================================");
+    Info(WPR_Info, 1, "Total Time: ", FormatFloat(timer / 1000.0), " seconds");
 
     output.res := true;
     return output;

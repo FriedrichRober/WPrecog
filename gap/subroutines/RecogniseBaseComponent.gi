@@ -25,11 +25,13 @@ BindGlobal("WPR_RecogniseBaseComponent", function(ri, data, options)
     timer := Runtime() - timer;
     if riS_reduced = fail then
         Info(WPR_Info, 1, "Failure: could not recognise base component");
-        Info(WPR_Info, 1, "Time : ", timer / 1000.0, " seconds");
+        Info(WPR_Info, 1, "Time: ", FormatFloat(timer / 1000.0), " seconds");
         return fail;
     fi;
     data.riS_reduced := riS_reduced;
-    data.niceGensForS := ResultOfStraightLineProgram(slptonice(data.riS_reduced), gensS);
-    Info(WPR_Info, 1, "Time : ", timer / 1000.0, " seconds");
+    # SLPOfElms
+    # data.niceGensForS := ResultOfStraightLineProgram(slptonice(data.riS_reduced), gensS);
+    data.niceGensForS := CalcNiceGens(riS_reduced, riS_reduced!.gensHmem);
+    Info(WPR_Info, 1, "Time: ", FormatFloat(timer / 1000.0), " seconds");
     return true;
 end);
