@@ -9,15 +9,15 @@ H := SymmetricGroup(m);
 
 # Construct wreath product
 PP := SymmetricGroup(n*m);
-P := WreathProduct(SymmetricGroup(n), SymmetricGroup(m));
+P := WreathProduct(SymmetricGroup(n), SymmetricGroup(m));;
 W := Group(Concatenation(
     List(GeneratorsOfGroup(K), x -> x^Embedding(P,1)),
     List(GeneratorsOfGroup(H), x -> x^Embedding(P,m+1))
-));
+));;
 
 # Random conjugation
-c := PseudoRandom(PP);
-G := W^(c^(-1));
+c := PseudoRandom(PP);;
+G := W^(c^(-1));;
 
 # # Nice isomorphism
 # isoWreath := IsomorphismWreathProduct(W);;
@@ -25,6 +25,7 @@ G := W^(c^(-1));
 # isoNice := isoConj * isoWreath;;
 
 # Recognition
-data := RecogniseWreathProduct(RecogNode(G), rec(
-    simpleBaseComp := false,
-));
+output := RecogniseWreathProduct(RecogNode(G), rec(
+    assumeSimpleBaseComponent := true,
+));;
+output.res;

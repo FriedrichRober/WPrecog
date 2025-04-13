@@ -10,8 +10,25 @@
 BindGlobal("WPR_Info", NewInfoClass("WPR_Info"));
 SetInfoLevel(WPR_Info, 3);
 
-ReadPackage( "WPrecog", "gap/Random.gi");
-ReadPackage( "WPrecog", "gap/SingleComponentGroup.gi");
-ReadPackage( "WPrecog", "gap/TopGroupAction.gi");
-ReadPackage( "WPrecog", "gap/RecogSubroutines.gi");
+ReadPackage( "WPrecog", "gap/Quick.gi");
+
+ReadPackage( "WPrecog", "gap/subroutines/Init.gi");
+
+ReadPackage( "WPrecog", "gap/subroutines/SingleComponentGroup/Helpers.gi");
+ReadPackage( "WPrecog", "gap/subroutines/SingleComponentGroup.gi");
+
+ReadPackage( "WPrecog", "gap/subroutines/RecogniseBaseComponent.gi");
+
+ReadPackage( "WPrecog", "gap/subroutines/RecogniseTopComponent.gi");
+
+ReadPackage( "WPrecog", "gap/subroutines/TopGroupDomainAndAction/ViaLinearAction.gi");
+ReadPackage( "WPrecog", "gap/subroutines/TopGroupDomainAndAction/ViaProductAction.gi");
+ReadPackage( "WPrecog", "gap/subroutines/TopGroupDomainAndAction/ViaSubgroup.gi");
+ReadPackage( "WPrecog", "gap/subroutines/TopGroupDomainAndAction.gi");
+
+ReadPackage( "WPrecog", "gap/subroutines/Image/ViaConjugationAction.gi");
+ReadPackage( "WPrecog", "gap/subroutines/Image/ViaLinearAction.gi");
+ReadPackage( "WPrecog", "gap/subroutines/Image/ViaProductAction.gi");
+ReadPackage( "WPrecog", "gap/subroutines/Image.gi");
+
 ReadPackage( "WPrecog", "gap/Recog.gi");

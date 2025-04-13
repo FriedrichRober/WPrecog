@@ -1,10 +1,38 @@
+#############################################################################
+##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
+##                                                                         ##
+##  Recog.gi
+##                                                                         ##
+##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
+#############################################################################
+##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
+##                                                                         ##
+##
+##  This file's authors include Friedrich Rober.
+##
+##  Please refer to the COPYRIGHT file for details.
+##
+##  SPDX-License-Identifier: GPL-2.0-or-later
+##
+##                                                                         ##
+##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
+#############################################################################
+##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
+##                                                                         ##
+##
+##  This file contains the main function for recognising wreath products.
+##
+##                                                                         ##
+##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
+#############################################################################
 
 BindGlobal( "RecogniseWreathProduct", function(args...)
     local ri, userOptions, options, name, data, res, output;
 
-    # ==================================================
+    # =======================================================================
     # Input extraction
-    # ==================================================
+    # =======================================================================
+
     if Length(args) = 0 or Length(args) > 2 then
         Error("Usage: RecogniseWreathProduct(ri[, options])");
     fi;
@@ -15,20 +43,24 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
         userOptions := args[2];
     fi;
 
-    # ==================================================
+    # =======================================================================
     # Default options
-    # ==================================================
+    # =======================================================================
+
     options := rec(
-        ForSingleComponentGroup := rec(),
-        ForTopGroupDomain := rec(),
+        forSingleComponentGroup := rec(),
+        forTopGroupDomain := rec(),
         action := fail,
         checkPrimitivity := false,
-        simpleBaseComp := true,
+        assumeSimpleBaseComponent := true,
+        recogniseComponents := true,
+        recogniseBaseComponentBeforeDomain := true,
+        recogniseBaseComponentViaIsomorphism := false,
     );
 
-    # ==================================================
+    # =======================================================================
     # Input validation
-    # ==================================================
+    # =======================================================================
 
     # Check recog node
     if not IsRecogNode(ri) then
@@ -43,10 +75,11 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
         options.(name) := userOptions.(name);
     od;
 
-    # ==================================================
+    # =======================================================================
     # Algorithm
-    # ==================================================
-    data := rec();
+    # =======================================================================
+
+    data := rec(currentStep := 0);
     output := rec(res := fail, data := data, options := options);
 
     # Init options
@@ -61,8 +94,28 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
         return output;
     fi;
 
+    # Recognise Base Component?
+    if options.recogniseComponents
+        and options.recogniseBaseComponentBeforeDomain
+    then
+        WPR_RecogniseBaseComponent(ri, data, options);
+    fi;
+
     # Top Group Domain
 	res := WPR_TopGroupDomain(ri, data, options);
+    if res = fail then
+        return output;
+    fi;
+
+    # Recognise Base Component?
+    if options.recogniseComponents
+        and not options.recogniseBaseComponentBeforeDomain
+    then
+        WPR_RecogniseBaseComponent(ri, data, options);
+    fi;
+
+    # Embedding
+    res := WPR_Embedding(ri, data, options);
     if res = fail then
         return output;
     fi;
