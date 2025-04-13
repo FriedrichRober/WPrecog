@@ -58,7 +58,7 @@ BindGlobal("WPR_Projection", function(g, ri, data, options)
 end);
 
 BindGlobal("WPR_Embedding", function(ri, data, options)
-    local W, embedding;
+    local res, W, embedding;
     Info(WPR_Info, 2, "\n");
 	Info(WPR_Info, 1, "Step ", data.currentStep, ": Compute embedding function");
 	Info(WPR_Info, 2, "--------------------------------------------------");
@@ -67,7 +67,10 @@ BindGlobal("WPR_Embedding", function(ri, data, options)
 		return WPR_Projection(StripMemory(g), ri, data, options);
 	end;
 
-    WPR_SetupImage(ri, data, options);
+    res := WPR_SetupImage(ri, data, options);
+    if res = fail then
+        return fail;
+    fi;
     data.imageFunc := function(g)
 		return WPR_Image(StripMemory(g), ri, data, options);
 	end;

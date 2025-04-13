@@ -8,21 +8,12 @@ K := AlternatingGroup(n);
 H := SymmetricGroup(m);
 
 # Construct wreath product
-PP := SymmetricGroup(n*m);
-P := WreathProduct(SymmetricGroup(n), SymmetricGroup(m));;
-W := Group(Concatenation(
-    List(GeneratorsOfGroup(K), x -> x^Embedding(P,1)),
-    List(GeneratorsOfGroup(H), x -> x^Embedding(P,m+1))
-));;
+P := SymmetricGroup(n*m);
+W := WreathProduct(K, H);;
 
 # Random conjugation
-c := PseudoRandom(PP);;
+c := PseudoRandom(P);;
 G := W^(c^(-1));;
-
-# # Nice isomorphism
-# isoWreath := IsomorphismWreathProduct(W);;
-# isoConj := GroupHomomorphismByFunction(G, W, g -> g^c);
-# isoNice := isoConj * isoWreath;;
 
 # Recognition
 output := RecogniseWreathProduct(RecogNode(G), rec(

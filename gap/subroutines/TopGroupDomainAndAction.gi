@@ -43,7 +43,7 @@ BindGlobal("WPR_TopGroupDomain", function(ri, data, options)
     local timer, name, G, gensS, S_withoutMem, domainData, W;
     G := Grp(ri);
     if IsBound(data.niceGensForS) then
-        gensS := data.niceGensForS;
+        gensS := List(data.niceGensForS, StripMemory);
     else
         gensS := List(GeneratorsOfGroup(data.S), StripMemory);
     fi;
@@ -78,7 +78,7 @@ BindGlobal("WPR_TopGroupDomain", function(ri, data, options)
     timer := Runtime() - timer;
     if domainData = fail then
         Info(WPR_Info, 1, "Failure: invalid domain");
-        Info(WPR_Info, 1, "Time : ", timer / 1000.0, " seconds");
+        Info(WPR_Info, 1, "Time: ", FormatFloat(timer / 1000.0), " seconds");
         return fail;
     fi;
     for name in RecNames(domainData) do
@@ -86,7 +86,7 @@ BindGlobal("WPR_TopGroupDomain", function(ri, data, options)
         data.m := Length(domainData.domain);
     od;
 	Info(WPR_Info, 2, "m = ", data.m);
-    Info(WPR_Info, 1, "Time : ", timer / 1000.0, " seconds");
+    Info(WPR_Info, 1, "Time: ", FormatFloat(timer / 1000.0), " seconds");
     return true;
 end);
 
@@ -107,9 +107,9 @@ end);
 InstallGlobalFunction("BlackBoxOrbit", function(args...)
     local ri, s, userOptions, options, name, G, t, domain, i, a, b, g, p, isEq, foundNew, indistinguishablePoints, j;
 
-    # ==================================================
+    # =======================================================================
     # Input extraction
-    # ==================================================
+    # =======================================================================
     if Length(args) < 2 or Length(args) > 3 then
         Error("Usage: BlackBoxOrbit(ri, s[, options])");
     fi;
@@ -121,9 +121,9 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
         userOptions := args[3];
     fi;
 
-    # ==================================================
+    # =======================================================================
     # Default options
-    # ==================================================
+    # =======================================================================
     options := rec(
         # -- Strategy flags -------------------------------------------
         recursionDepth := 1,
@@ -141,9 +141,9 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
         resolveConflict := {p, indistinguishablePoints} -> fail, # try to find different domain or return fail,
     );
 
-    # ==================================================
+    # =======================================================================
     # Input validation
-    # ==================================================
+    # =======================================================================
 
     # Check recog node
     if not IsRecogNode(ri) then
@@ -158,14 +158,14 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
         options.(name) := userOptions.(name);
     od;
 
-    # ==================================================
+    # =======================================================================
     # Algorithm
-    # ==================================================
+    # =======================================================================
 
     if options.recursionDepth > options.recursionMaxDepth then
         return fail;
     fi;
-    Info(WPR_Info, 2, "Recursion Depth: ", options.recursionDepth);
+    Info(WPR_Info, 3, "Recursion Depth: ", options.recursionDepth);
     if options.useMemory then
         G := Group(ri!.gensHmem);
     else
@@ -196,15 +196,14 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
                     foundNew := false;
                     # If we can prove a conflict, we need to adjust the domain
                     if options.isConflict(p, indistinguishablePoints) then
-                        Info(WPR_Info, 2, "Found conflict");
+                        Info(WPR_Info, 3, "Found conflict");
                         # The domain is not invariant under the action,
                         # thus we try compute a new point to resolve the conflict
                         s := options.resolveConflict(p, indistinguishablePoints);
                         if s = fail then
-                            Info(WPR_Info, 2, "Could not resolve conflict");
+                            Info(WPR_Info, 3, "Could not resolve conflict");
                             return fail;
                         fi;
-                        Error("Examine Me!");
                         options.recursionDepth := options.recursionDepth + 1;
                         return BlackBoxOrbit(ri, s, options);
                     fi;
@@ -212,7 +211,7 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
             od;
             if foundNew then
                 if Length(domain) >= options.maximalBoundOnTopDegree then
-                    Info(WPR_Info, 2, "Domain too large, abort now");
+                    Info(WPR_Info, 3, "Domain too large, abort now");
                     return fail;
                 fi;
                 Add(t, t[i] * g);
@@ -242,9 +241,10 @@ end);
 InstallGlobalFunction("BlackBoxAction", function(args...)
     local g, domain, s, userOptions, options, name, m, images, i, j, a, b, p;
 
-    # ==================================================
+    # =======================================================================
     # Input extraction
-    # ==================================================
+    # =======================================================================
+
     if Length(args) < 2 or Length(args) > 3 then
         Error("Usage: BlackBoxAction(g, domain[, options])");
     fi;
@@ -256,18 +256,19 @@ InstallGlobalFunction("BlackBoxAction", function(args...)
         userOptions := args[3];
     fi;
 
-    # ==================================================
+    # =======================================================================
     # Default options
-    # ==================================================
+    # =======================================================================
+
     options := rec(
         # -- Action oracles -------------------------------------------
         act := OnPoints,
         isEqual := \=,                              # isEqual returns true if p and b are assumed to be equal
     );
 
-    # ==================================================
+    # =======================================================================
     # Input validation
-    # ==================================================
+    # =======================================================================
 
     # Validate and apply user-provided options
     for name in RecNames(userOptions) do
@@ -277,9 +278,10 @@ InstallGlobalFunction("BlackBoxAction", function(args...)
         options.(name) := userOptions.(name);
     od;
 
-    # ==================================================
+    # =======================================================================
     # Algorithm
-    # ==================================================
+    # =======================================================================
+
     m := Length(domain);
 	images := EmptyPlist(m);
     for i in [1 .. m] do
@@ -299,5 +301,6 @@ InstallGlobalFunction("BlackBoxAction", function(args...)
             return fail;
         fi;
     od;
+
     return PermList(images);
 end);
