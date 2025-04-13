@@ -14,17 +14,9 @@
 #! This section will describe the example
 #! methods of WPrecog
 
-DeclareGlobalFunction("QuickRandomPermList");
-DeclareGlobalFunction("QuickRandomSubproduct");
-DeclareGlobalFunction("QuickNormalClosure");
 DeclareGlobalFunction("SingleComponentGroup");
-DeclareGlobalFunction("SingleComponentGroup_Descend");
-DeclareGlobalFunction("SingleComponentGroup_ReductionRate");
-DeclareGlobalFunction("SingleComponentGroup_NrIterations1");
-DeclareGlobalFunction("SingleComponentGroup_NrIterations2");
-DeclareGlobalFunction("SingleComponentGroup_UpdateParameters");
-
 DeclareGlobalFunction("BlackBoxOrbit");
+DeclareGlobalFunction("BlackBoxAction");
 
 
 
