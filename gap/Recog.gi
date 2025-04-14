@@ -56,6 +56,7 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
         recogniseComponents := true,
         recogniseBaseComponentBeforeDomain := true,
         recogniseBaseComponentViaIsomorphism := false,
+        M := fail,
     );
 
     # =======================================================================

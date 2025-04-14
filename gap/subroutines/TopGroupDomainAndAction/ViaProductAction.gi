@@ -44,6 +44,7 @@ BindGlobal("WPR_TopGroupDomainViaProductAction", function(args...)
     userOptions.isDistinguishable := {a, b} -> Size(Intersection(Orbit(a, 1), Orbit(b, 1))) = 1;
     userOptions.isConflict := {p, P} -> Length(P) >= 1;
     userOptions.resolveConflict := {p, P} -> Group(Concatenation(List(Concatenation(P, [p]), GeneratorsOfGroup)));
+    # userOptions.resolveConflict := {p, P} -> QuickNormalClosure(Group(Concatenation(List(Concatenation(P, [p]), GeneratorsOfGroup))), userOptions.B, 5);
 
     return BlackBoxOrbit(ri, s, userOptions);
 end);

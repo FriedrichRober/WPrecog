@@ -45,12 +45,14 @@ BindGlobal("WPR_InitOptions", function(ri, data, options)
         Error("todo");
 	fi;
 
-    if IsBound(options.forSingleComponentGroup.M) then
+    if options.M <> fail then
         Info(WPR_Info, 2, "User specified an upper bound for m");
-        options.forSingleComponentGroup.M := Minimum(options.forSingleComponentGroup.M, M);
+        options.M := Minimum(M, options.M);
         Info(WPR_Info, 2, "Assume m <= ", M);
     else
-        options.forSingleComponentGroup.M := M;
+        options.M := M;
     fi;
+    options.forSingleComponentGroup.M := options.M;
+    options.forTopGroupDomain.maximalBoundOnTopDegree := options.M;
     return true;
 end);
