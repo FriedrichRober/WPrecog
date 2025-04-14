@@ -1,15 +1,17 @@
 LoadPackage("WPE", false);
 LoadPackage("WPrecog", false);
+ReadPackage("WPrecog", "examples/Utils.gi");
 
 # Permutation Group : Imprimitive
-n := 9;
-m := 12;
+n := 15;
+m := 5;
 K := AlternatingGroup(n);
 H := SymmetricGroup(m);
 
 # Construct wreath product
 P := SymmetricGroup(n*m);
 W := WreathProduct(K, H);;
+W := RandomGroup(W);;
 
 # Random conjugation
 c := PseudoRandom(P);;

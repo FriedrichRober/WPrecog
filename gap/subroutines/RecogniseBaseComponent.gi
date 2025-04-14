@@ -31,7 +31,7 @@ BindGlobal("WPR_RecogniseBaseComponent", function(ri, data, options)
     data.riS_reduced := riS_reduced;
     # SLPOfElms
     # data.niceGensForS := ResultOfStraightLineProgram(slptonice(data.riS_reduced), gensS);
-    data.niceGensForS := CalcNiceGens(riS_reduced, riS_reduced!.gensHmem);
+    data.niceGensForS := CalcNiceGens(riS_reduced, GeneratorsOfGroup(data.S));
     Info(WPR_Info, 1, "Time: ", FormatFloat(timer / 1000.0), " seconds");
     return true;
 end);

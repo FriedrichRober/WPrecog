@@ -38,16 +38,18 @@
 #############################################################################
 
 BindGlobal("WPR_SingleComponentGroup", function(ri, data, options)
-    local timer, name, S;
+    local timer, name, singleCompData;
 	Info(WPR_Info, 2, "\n");
 	Info(WPR_Info, 1, "Step ", data.currentStep, ": Compute a single-component group S");
 	Info(WPR_Info, 2, "---------------------------------------------------------------");
     data.currentStep := data.currentStep + 1;
     timer := Runtime();
-	S := SingleComponentGroup(ri, options.forSingleComponentGroup); # with memory
+	singleCompData := SingleComponentGroup(ri, options.forSingleComponentGroup); # with memory
     timer := Runtime() - timer;
     Info(WPR_Info, 1, "Time: ", FormatFloat(timer / 1000.0), " seconds");
-    data.S := S;
+    for name in RecNames(singleCompData) do
+        data.(name) := singleCompData.(name);
+    od;
     return true;
 end);
 
@@ -94,7 +96,7 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
         # -- Strategy flags ------------------------------------------------------------------------
         primes := [2, 3, 5, 7],                 # prime numbers to use in a step
         randomElementGenerator                  # function to generate random elements
-          := QuickRandomSubproduct,
+          := PseudoRandom,
         useMemory := true,                      # whether to use memory for group elements
         useBaseGroupInPhase2 := false,          # use base group instead of previous group in phase 2
         useBaseGroupAtEnd := true,              # use base group at end (ignored if useBaseGroupInPhase2)
@@ -104,6 +106,8 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
         # -- Phase iteration counts ----------------------------------------------------------------
         l1 := 5,                                # number of iterations in phase 1
         l2 := 35,                               # number of iterations in phase 2
+        l1Min := 5,                             # minimal number of iterations in phase 1
+        l2Min := 5,                             # minimal number of iterations in phase 2
 
         # -- Normal closure effort parameters ------------------------------------------------------
         n1 := 5,                                # effort per step in phase 1
@@ -151,6 +155,7 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
     l1 := WPR_SCG_NrIterations1(R[1], options.eps/2);
     if options.heuristic then
         l1 := Minimum(l1, options.l1);
+        l1 := Maximum(l1, options.l1Min);
     fi;
     descendOptions := rec(
         randomElementGenerator := options.randomElementGenerator,
@@ -177,6 +182,7 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
     fi;
     if options.heuristic then
         l2 := Minimum(l2, options.l2);
+        l2 := Maximum(l2, options.l2Min);
     fi;
     descendOptions := rec(
         randomElementGenerator := options.randomElementGenerator,
@@ -201,6 +207,5 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
         S := QuickNormalClosure(S, B, options.n0);
         Info(WPR_Info, 3, "... Finished computing normal closure in base group");
     fi;
-    return S;
-
+    return rec(B := B, S := S);
 end);

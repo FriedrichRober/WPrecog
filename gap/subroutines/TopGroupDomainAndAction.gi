@@ -190,6 +190,7 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
                     break;
                 # can we distinguish between p and b via our action?
                 elif not options.isDistinguishable(p, b) then
+                    Error("Inspect Me");
                     Add(indistinguishablePoints, b);
                     # We cannot distinguish between these points,
                     # so we need to assume for now that they are equal.

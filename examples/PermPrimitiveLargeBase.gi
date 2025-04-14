@@ -1,5 +1,6 @@
 LoadPackage("WPE", false);
 LoadPackage("WPrecog", false);
+ReadPackage("WPrecog", "examples/Utils.gi");
 
 # Permutation Group : Product Action
 m := 5;
@@ -14,6 +15,7 @@ H := Random(AllTransitiveGroups(NrMovedPoints, m));
 # Construct wreath product
 P := SymmetricGroup(n^m);
 W := WreathProductProductAction(K, H);;
+W := RandomGroup(W);;
 
 # Random conjugation
 c := PseudoRandom(P);;
@@ -24,6 +26,9 @@ output := RecogniseWreathProduct(RecogNode(G), rec(
     action := "product action",
 ));;
 res := output.res;
+emb := output.data.embedding;;
+R := Range(emb);;
+ListWreathProductElement(R, ImageElm(emb, G.1));
 
 timer := Runtime();;
 riG := RecogniseGroup(G);;
