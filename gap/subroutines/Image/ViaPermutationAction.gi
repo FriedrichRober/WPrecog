@@ -1,10 +1,10 @@
-
-BindGlobal("SetupImageViaProductAction", function(ri, data, options)
-    local riS, domainDataS, n, m;
+BindGlobal("SetupImageViaImprimitiveAction", function(ri, data, options)
+    local riS, domainDataS, n, m, p;
     m := data.m;
-    n := RootInt(NrMovedPoints(Grp(ri)), m);
+    n := NrMovedPoints(Grp(ri)) / m;
     riS := RecogNode(Group(List(GeneratorsOfGroup(data.S), StripMemory)));
-    domainDataS := BlackBoxOrbit(riS, 1, rec(
+    p := First(MovedPoints(data.S.1));
+    domainDataS := BlackBoxOrbit(riS, p, rec(
         useMemory := false,
         maximalBoundOnTopDegree := n));
     data.domainS := domainDataS.domain;
@@ -17,7 +17,26 @@ BindGlobal("SetupImageViaProductAction", function(ri, data, options)
     return true;
 end);
 
-BindGlobal("ImageViaProductAction", function(g, ri, data, options)
+BindGlobal("SetupImageViaProductAction", function(ri, data, options)
+    local riS, domainDataS, n, m, p;
+    m := data.m;
+    n := RootInt(NrMovedPoints(Grp(ri)), m);
+    riS := RecogNode(Group(List(GeneratorsOfGroup(data.S), StripMemory)));
+    p := 1;
+    domainDataS := BlackBoxOrbit(riS, p, rec(
+        useMemory := false,
+        maximalBoundOnTopDegree := n));
+    data.domainS := domainDataS.domain;
+    data.transversalS := domainDataS.transversal;
+    if n <> Length(data.transversalS) then
+        return fail;
+    fi;
+    data.translationS := MappingPermListList(data.domainS, [1..n]);
+    data.parentWreathProduct := WreathProduct(SymmetricGroup(n), SymmetricGroup(m));
+    return true;
+end);
+
+BindGlobal("ImageViaPermutationAction", function(g, ri, data, options)
     local pi, m, domain, t, riS, domainDataS, orb, s, n, W, sigma, w, i, j, k, points, p, candidates1, x, L, l, candidates2, images;
     pi := data.projectionFunction(g);
 	if pi = fail then

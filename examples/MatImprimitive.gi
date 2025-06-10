@@ -1,5 +1,6 @@
 LoadPackage("WPE", false);
 LoadPackage("WPrecog", false);
+ReadPackage("WPrecog", "examples/Utils.gi");
 
 # Matrix Group : Imprimitive
 d := 9;
@@ -12,6 +13,7 @@ D := d*m;
 # Construct wreath product
 P := GL(D, q);
 W := WreathProduct(K, H);
+W := RandomGroup(W);;
 
 # Random conjugation
 c := PseudoRandom(P);;

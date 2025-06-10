@@ -20,12 +20,12 @@ G := W^(c^(-1));;
 
 # Recognition
 output := RecogniseWreathProduct(RecogNode(G), rec(
-    action := "product action",
-    forSingleComponentGroup := rec(
-        lazy := false,
-    ),
+    action := "product action"
 ));;
 res := output.res;
+emb := output.data.embedding;;
+R := Range(emb);;
+ListWreathProductElement(R, ImageElm(emb, G.1));
 
 timer := Runtime();;
 riG := RecogniseGroup(G);;

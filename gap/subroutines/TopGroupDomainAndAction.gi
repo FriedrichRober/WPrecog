@@ -42,10 +42,9 @@
 BindGlobal("WPR_TopGroupDomain", function(ri, data, options)
     local timer, name, G, gensS, S_withoutMem, domainData, W;
     G := Grp(ri);
-    if IsBound(data.niceGensForS) then
+    gensS := List(GeneratorsOfGroup(data.S), StripMemory);
+    if IsBound(data.niceGensForS) and Length(data.niceGensForS) < Length(gensS) then
         gensS := List(data.niceGensForS, StripMemory);
-    else
-        gensS := List(GeneratorsOfGroup(data.S), StripMemory);
     fi;
     S_withoutMem := Group(gensS);
     Info(WPR_Info, 2, "\n");
@@ -190,7 +189,6 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
                     break;
                 # can we distinguish between p and b via our action?
                 elif not options.isDistinguishable(p, b) then
-                    Error("Inspect Me");
                     Add(indistinguishablePoints, b);
                     # We cannot distinguish between these points,
                     # so we need to assume for now that they are equal.

@@ -29,7 +29,7 @@ ReadPackage( "WPrecog", "gap/subroutines/TopGroupDomainAndAction.gi");
 
 ReadPackage( "WPrecog", "gap/subroutines/Image/ViaConjugationAction.gi");
 ReadPackage( "WPrecog", "gap/subroutines/Image/ViaLinearAction.gi");
-ReadPackage( "WPrecog", "gap/subroutines/Image/ViaProductAction.gi");
+ReadPackage( "WPrecog", "gap/subroutines/Image/ViaPermutationAction.gi");
 ReadPackage( "WPrecog", "gap/subroutines/Image.gi");
 
 ReadPackage( "WPrecog", "gap/Recog.gi");

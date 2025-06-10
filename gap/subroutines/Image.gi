@@ -7,7 +7,7 @@ BindGlobal("WPR_SetupImage", function(ri, data, options)
         if options.action = "product action" then
 	        return SetupImageViaProductAction(ri, data, options);
         elif options.action = "imprimitive action" then
-            # TODO
+            return SetupImageViaImprimitiveAction(ri, data, options);
         fi;
     elif IsMatrixGroup(G) then
         if options.action = "imprimitive action" then
@@ -25,9 +25,9 @@ BindGlobal("WPR_Image", function(g, ri, data, options)
     # exploit representations
     if IsPermGroup(G) then
         if options.action = "product action" then
-	        return ImageViaProductAction(g, ri, data, options);
+	        return ImageViaPermutationAction(g, ri, data, options);
         elif options.action = "imprimitive action" then
-            # TODO
+            return ImageViaPermutationAction(g, ri, data, options);
         fi;
     elif IsMatrixGroup(G) then
         if options.action = "imprimitive action" then

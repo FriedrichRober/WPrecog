@@ -21,4 +21,7 @@ G := W^(c^(-1));;
 output := RecogniseWreathProduct(RecogNode(G), rec(
     assumeSimpleBaseComponent := true,
 ));;
-output.res;
+res := output.res;
+emb := output.data.embedding;;
+R := Range(emb);;
+ListWreathProductElement(R, ImageElm(emb, G.1));
