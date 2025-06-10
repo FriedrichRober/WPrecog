@@ -96,7 +96,7 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
         # -- Strategy flags ------------------------------------------------------------------------
         primes := [2, 3, 5, 7],                 # prime numbers to use in a step
         randomElementGenerator                  # function to generate random elements
-          := PseudoRandom,
+          := QuickRandomSubproduct,
         useMemory := true,                      # whether to use memory for group elements
         useBaseGroupInPhase2 := false,          # use base group instead of previous group in phase 2
         useBaseGroupAtEnd := true,              # use base group at end (ignored if useBaseGroupInPhase2)
@@ -110,8 +110,8 @@ InstallGlobalFunction("SingleComponentGroup", function(args...)
         l2Min := 5,                             # minimal number of iterations in phase 2
 
         # -- Normal closure effort parameters ------------------------------------------------------
-        n1 := 5,                                # effort per step in phase 1
-        n2 := 5,                                # effort per step in phase 2
+        n1 := 2,                                # effort per step in phase 1
+        n2 := 2,                                # effort per step in phase 2
         n0 := 2,                                # effort at final step (used only if useBaseGroupAtEnd)
     );
 
