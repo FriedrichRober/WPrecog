@@ -8,7 +8,7 @@
 # Level 2: Show Important Bounds in Submethods
 # Level 3: Show Progress of Iterations
 BindGlobal("WPR_Info", NewInfoClass("WPR_Info"));
-SetInfoLevel(WPR_Info, 3);
+SetInfoLevel(WPR_Info, 0);
 
 ReadPackage( "WPrecog", "gap/Utils.gi");
 ReadPackage( "WPrecog", "gap/Quick.gi");

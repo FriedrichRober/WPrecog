@@ -20,7 +20,7 @@ c := PseudoRandom(P);;
 G := W^(c^(-1));;
 
 # Recognition
-output := RecogniseWreathProduct(RecogNode(G), rec(
+output := WreathProductDecomposition(RecogNode(G), rec(
     assumeSimpleBaseComponent := false,
     recogniseBaseComponentBeforeDomain := false,
 ));;

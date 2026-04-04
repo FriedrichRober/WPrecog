@@ -1,0 +1,53 @@
+<Chapter Label="Functions">
+<Heading>Functions</Heading>
+
+Here we include a list of all functions that are provided to the User.<P/>
+
+<Section Label="Wreath Product Decomposition">
+<Heading>Wreath Product Decomposition</Heading>
+
+The main way for the User to look at a wreath product in a "human-readable" way
+is by using an isomorphism from a specialised wreath product representation
+to a generic representation.
+
+<ManSection>
+<Meth Name="WreathProductDecomposition" Arg="G[, optrec]"/>
+
+<Description>
+Let <A>G</A> be a group or a recog node,
+and <A>optrec</A> be an options record.
+Returns fail or a wreath product decomposition of <A>G</A>, i.e. an embedding from <A>G</A> to a natural wreath product.
+
+The following components of <A>optrec</A> are supported.
+Suppose that <M>G \leq K \wr H</M> with <M>H \leq \textrm{Sym}(m)</M>.
+
+<List>
+<Mark><C>action</C></Mark>
+<Item>
+<K>"product action"</K> for permutation group, assume product action <P/>
+<K>"imprimitive action"</K> for permutation or matrix group, assume imprimitive action <P/>
+<K>fail</K> no assumptions <E>DEFAULT</E> <P/>
+</Item>
+<Mark><C>assumeSimpleBaseComponent</C></Mark>
+<Item>
+<K>true</K> assume <M>K</M> is non-abelian simple <E>DEFAULT</E> <P/>
+<K>false</K> no assumptions <P/>
+</Item>
+<Mark><C>debug</C></Mark>
+<Item>
+<K>true</K> return record containing "res", "data" and "options": <P/>
+    <List>
+    <Item> <K>"res"</K> is true if embedding was computed, otherwise fail </Item>
+    <Item> <K>"data"</K> is record containing all intermediate results of the computation </Item>
+    <Item> <K>"options"</K> is a copy of the used options record in the computation </Item>
+    </List>
+<K>false</K> return fail or embedding <E>DEFAULT</E> <P/>
+</Item>
+</List>
+</Description>
+
+</ManSection>
+
+</Section>
+
+</Chapter>
