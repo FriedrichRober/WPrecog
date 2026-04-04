@@ -26,7 +26,17 @@
 ##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
 #############################################################################
 
-BindGlobal( "RecogniseWreathProduct", function(args...)
+BindGlobal( "WPR_ConvertOutput", function(output, debug)
+    if debug then
+        return output;
+    elif output.res = true then
+        return output.data.embedding;
+    else
+        return fail;
+    fi;
+end);
+
+BindGlobal( "WreathProductDecomposition", function(args...)
     local ri, userOptions, options, name, timer, data, res, output;
 
     # =======================================================================
@@ -34,10 +44,16 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
     # =======================================================================
 
     if Length(args) = 0 or Length(args) > 2 then
-        Error("Usage: RecogniseWreathProduct(ri[, options])");
+        Error("Usage: WreathProductDecomposition(ri[, options])");
     fi;
 
-    ri := args[1];
+    if IsGroup(args[1]) then
+        ri := RecogNode(args[1]);
+    elif IsRecogNode(args[1]) then
+        ri := args[1];
+    else
+        Error("Usage: first argument must be a group or recog node");
+    fi;
     userOptions := rec();
     if Length(args) = 2 then
         userOptions := args[2];
@@ -53,10 +69,11 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
         action := fail,
         checkPrimitivity := false,
         assumeSimpleBaseComponent := true,
-        recogniseComponents := true,
+        recogniseBaseComponent := true,
         recogniseBaseComponentBeforeDomain := true,
         recogniseBaseComponentViaIsomorphism := false,
         M := fail,
+        debug := false,
     );
 
     # =======================================================================
@@ -85,28 +102,28 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
     timer := Runtime();
 
     # Init options
-    res := WPR_InitOptions(ri, data, options);
-    if res = fail then
-        return output;
+    output.res := WPR_InitOptions(ri, data, options);
+    if output.res = fail then
+        return WPR_ConvertOutput(output, options.debug);
     fi;
 
     # Single Component Group
-    res := WPR_SingleComponentGroup(ri, data, options);
-    if res = fail then
-        return output;
+    output.res := WPR_SingleComponentGroup(ri, data, options);
+    if output.res = fail then
+        return WPR_ConvertOutput(output, options.debug);
     fi;
 
     # Recognise Base Component?
-    if options.recogniseComponents
+    if options.recogniseBaseComponent
         and options.recogniseBaseComponentBeforeDomain
     then
         WPR_RecogniseBaseComponent(ri, data, options);
     fi;
 
     # Top Group Domain
-	res := WPR_TopGroupDomain(ri, data, options);
-    if res = fail then
-        return output;
+	output.res := WPR_TopGroupDomain(ri, data, options);
+    if output.res = fail then
+        return WPR_ConvertOutput(output, options.debug);
     fi;
 
     # TODO: handle this cleaner
@@ -115,23 +132,23 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
             if Dimension(data.domain[1]) * data.m = DimensionOfMatrixGroup(Grp(ri)) then
                 data.B := Concatenation(List(data.domain, Basis))^(-1);
                 output.res := true;
-                return output;
+                return WPR_ConvertOutput(output, options.debug);
             fi;
         fi;
         Error("TODO");
     fi;
 
     # Recognise Base Component?
-    if options.recogniseComponents
+    if options.recogniseBaseComponent
         and not options.recogniseBaseComponentBeforeDomain
     then
         WPR_RecogniseBaseComponent(ri, data, options);
     fi;
 
     # Embedding
-    res := WPR_Embedding(ri, data, options);
-    if res = fail then
-        return output;
+    output.res := WPR_Embedding(ri, data, options);
+    if output.res = fail then
+        return WPR_ConvertOutput(output, options.debug);
     fi;
 
     timer := Runtime() - timer;
@@ -139,5 +156,5 @@ BindGlobal( "RecogniseWreathProduct", function(args...)
     Info(WPR_Info, 1, "Total Time: ", FormatFloat(timer / 1000.0), " seconds");
 
     output.res := true;
-    return output;
+    return WPR_ConvertOutput(output, options.debug);
 end);

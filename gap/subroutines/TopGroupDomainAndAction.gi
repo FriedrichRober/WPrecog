@@ -32,7 +32,7 @@
 #############################################################################
 ##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
 ##
-## Called by RecogniseWreathProduct.
+## Called by WreathProductDecomposition.
 ## Wrapper for WPR_TopGroupDomainVia___.
 ## These use BlackBoxOrbit under the hood.
 ##
@@ -125,16 +125,17 @@ InstallGlobalFunction("BlackBoxOrbit", function(args...)
     # =======================================================================
     options := rec(
         # -- Strategy flags -------------------------------------------
-        recursionDepth := 1,
-        recursionMaxDepth := 5,
-        maximalBoundOnTopDegree := 50,
-        useMemory := true,                        # whether to use memory for group elements
+        recursionDepth := 1,                        # current recursion depth
+        recursionMaxDepth := 5,                     # maximal recursion depth
+        maximalBoundOnTopDegree := 50,              # if the computed domain exceeds this bound, then return fail
+        useMemory := true,                          # whether to use memory for group elements
         # -- Action oracles -------------------------------------------
         act := OnPoints,
         isEqual := \=,                              # isEqual returns true if p and b are equal
                                                     #         returns false if we cannot determine whether p and b are equal
-        isDistinguishable := {a, b} -> true,        # if IsEqual returns false (so a = b could not be proven, but might be true),
-                                                    # this returns true if we can distinguish between a and b.
+        isDistinguishable := {a, b} -> true,        # Called after IsEqual returns false.
+                                                    # We use a heuristic and our action to distinguish between a and b.
+                                                    # This returns true if we can distinguish between a and b.
                                                     # If points are not distinguishable, we assume they are equal for the moment
         isConflict := {p, indistinguishablePoints} -> false,     # return true if domain might not be invariant under the action
         resolveConflict := {p, indistinguishablePoints} -> fail, # try to find different domain or return fail,

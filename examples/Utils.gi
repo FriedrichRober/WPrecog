@@ -22,7 +22,7 @@ BindGlobal("RandomGenerator_SingleReplacement", function(gens, args...)
         A[p] := 1;
     fi;
     B := QuickRandomPermutedList(n);
-    gens[B[p]] := Product([1 .. n], i -> gens[B[i]]^A[B[i]]);
+    gens[p] := Product([1 .. n], i -> gens[B[i]]^A[B[i]]);
 end);
 
 BindGlobal("RandomGenerators", function(gens)

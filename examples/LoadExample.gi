@@ -5,7 +5,7 @@ LoadPackage("WPrecog", false);
 Read("examples/difficultPermPrimitiveLargeBase.gi");;
 
 # Recognition
-output := RecogniseWreathProduct(RecogNode(G), rec(
+output := WreathProductDecomposition(RecogNode(G), rec(
     action := "product action",
 ));;
 res := output.res;
