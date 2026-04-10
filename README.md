@@ -37,7 +37,7 @@ you first have to build the manual by using `gap makedoc.g` from within the `WPr
 ## Bug reports
 
 Please submit bug reports, feature requests and suggestions via our issue tracker at
->  <https://github.com/gap-packages/WPE/issues>
+>  <https://github.com/FriedrichRober/WPrecog/issues>
 
 ## License
 
