@@ -1,0 +1,54 @@
+  
+  [1X2 [33X[0;0YFunctions[133X[101X
+  
+  [33X[0;0YHere we include a list of all functions that are provided to the User.[133X
+  
+  
+  [1X2.1 [33X[0;0YWreath Product Decomposition[133X[101X
+  
+  [33X[0;0YThe  returned  embeddings,  i.e.  wreath  product  decompositions,  map into
+  specialised   wreath   product   representations,   the   ones  obtained  by
+  [10XWreathProduct[110X.  The  main  way for the User to look at a wreath product in a
+  "human-readable"  way  is  either  by  using  an  isomorphism  from  such  a
+  specialised  wreath  product  representation to a generic representation via
+  [10XIsomorphismWreathProduct[110X    or    by    using    the    low-level   function
+  [10XListWreathProductElement[110X.[133X
+  
+  [1X2.1-1 WreathProductDecomposition[101X
+  
+  [33X[1;0Y[29X[2XWreathProductDecomposition[102X( [3XG[103X[, [3Xoptrec[103X] ) [32X method[133X
+  
+  [33X[0;0YLet  [3XG[103X  be a group or a recog node, and [3Xoptrec[103X be an options record. Returns
+  fail  or  a wreath product decomposition of [3XG[103X, i.e. an embedding from [3XG[103X to a
+  natural  wreath product, unless the [3Xdebug[103X option is set to true (see below).
+  The  following  components  of  [3Xoptrec[103X  are  supported.  Many more technical
+  components  are  supported,  however,  they  might  be  due to change during
+  development.  We  therefore refer advanced users to the comments in the code
+  to see all available options. Suppose that [22XG ≤ K ≀ H[122X with [22XH ≤ Sym(m)[122X.[133X
+  
+  [8X[10Xaction[110X[8X[108X
+        [33X[0;6Y[9X"product action"[109X for permutation group, assume product action[133X
+  
+        [33X[0;6Y[9X"imprimitive   action"[109X   for   permutation  or  matrix  group,  assume
+        imprimitive action[133X
+  
+        [33X[0;6Y[9Xfail[109X no assumptions [13XDEFAULT[113X[133X
+  
+  [8X[10XassumeSimpleBaseComponent[110X[8X[108X
+        [33X[0;6Y[9Xtrue[109X assume [22XK[122X is non-abelian simple [13XDEFAULT[113X[133X
+  
+        [33X[0;6Y[9Xfalse[109X no assumptions[133X
+  
+  [8X[10Xdebug[110X[8X[108X
+        [33X[0;6Y[9Xtrue[109X return record containing "res", "data" and "options":[133X
+  
+        [30X    [33X[0;12Y[9X"res"[109X is true if embedding was computed, otherwise fail[133X
+  
+        [30X    [33X[0;12Y[9X"data"[109X  is  record  containing  all  intermediate results of the
+              computation[133X
+  
+        [30X    [33X[0;12Y[9X"options"[109X   is  a  copy  of  the  used  options  record  in  the
+              computation[133X
+  
+        [33X[0;6Y[9Xfalse[109X return fail or embedding [13XDEFAULT[113X[133X
+  

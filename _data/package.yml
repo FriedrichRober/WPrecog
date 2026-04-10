@@ -1,9 +1,9 @@
-name: WPR
+name: WPrecog
 version: "0.1"
 license: "GPL-2.0-or-later"
-date: 2021-06-09
+date: 2026-04-10
 description: |
-    Wreath Product Recognition implements constructive recognition algorithms for wreath products with almost simple base component
+    provides constructive recognition algorithms for subgroups of wreath products via wreath product decompositions
 
 authors:
     - name: Friedrich Rober
@@ -13,15 +13,20 @@ maintainers:
     - name: Friedrich Rober
       url: mailto:friedrich.rober@rwth-aachen.de
 
-GAP: ">= 4.11"
+GAP: ">= 4.12"
 
-www: https://FriedrichRober.github.io/WPR/
+needed-pkgs:
+    - name: "recog"
+      version: ">= 1.3.2"
+      url: "https://gap-packages.github.io/recog"
+
+www: https://FriedrichRober.github.io/WPrecog/
 readme: README.md
-packageinfo: https://FriedrichRober.github.io/WPR/PackageInfo.g
+packageinfo: https://FriedrichRober.github.io/WPrecog/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/FriedrichRober/WPR/releases/download/v0.1/WPR-0.1.tar.gz
+      url: https://github.com/FriedrichRober/WPrecog/releases/download/v0.1/WPrecog-0.1.tar.gz
 
 abstract: |
 
@@ -30,27 +35,27 @@ doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>Rob21</span>]   <b class='BibAuthor'>Rober, F.</b>,
-     <i class='BibTitle'>WPR, Wreath Product Recognition implements constructive recognition algorithms for wreath products with almost simple base component,
+    [<span class='BibKey'>Rob26</span>]   <b class='BibAuthor'>Rober, F.</b>,
+     <i class='BibTitle'>WPrecog, provides constructive recognition algorithms for subgroups of wreath products via wreath product decompositions,
              Version 0.1</i>
-     (<span class='BibYear'>2021</span>)<br />
+     (<span class='BibYear'>2026</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://FriedrichRober.github.io/WPR/">https://FriedrichRober.github.io/WPR/</a></span>.
+    <span class='BibHowpublished'><a href="https://FriedrichRober.github.io/WPrecog/">https://FriedrichRober.github.io/WPrecog/</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ WPR0.1,
+    @misc{ WPrecog,
       author =           {Rober, F.},
-      title =            {{WPR},  Wreath  Product  Recognition  implements constructive
-                          recognition algorithms for wreath products with almost simple
-                          base component, {V}ersion 0.1},
-      month =            {Jun},
-      year =             {2021},
+      title =            {{WPrecog},     provides    constructive    recognition
+                          algorithms for subgroups of wreath products via wreath
+                          product decompositions, {V}ersion 0.1},
+      month =            {Apr},
+      year =             {2026},
       note =             {GAP package},
-      howpublished =     {\href                 {https://FriedrichRober.github.io/WPR/}
+      howpublished =     {\href      {https://FriedrichRober.github.io/WPrecog/}
                           {\texttt{https://FriedrichRober.github.io/}\discretionary
-                          {}{}{}\texttt{WPR/}}},
-      printedkey =       {Rob21}
+                          {}{}{}\texttt{WPrecog/}}},
+      printedkey =       {Rob26}
     }
 

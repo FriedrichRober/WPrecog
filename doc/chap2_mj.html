@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (WPrecog) - Chapter 2: Functions</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap2"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapInd_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap2.html">[MathJax off]</a></p>
+<p><a id="X86FA580F8055B274" name="X86FA580F8055B274"></a></p>
+<div class="ChapSects"><a href="chap2_mj.html#X86FA580F8055B274">2 <span class="Heading">Functions</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X84B291857A238D0A">2.1 <span class="Heading">Wreath Product Decomposition</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X85112D567B917156">2.1-1 WreathProductDecomposition</a></span>
+</div></div>
+</div>
+
+<h3>2 <span class="Heading">Functions</span></h3>
+
+<p>Here we include a list of all functions that are provided to the User.</p>
+
+<p><a id="X84B291857A238D0A" name="X84B291857A238D0A"></a></p>
+
+<h4>2.1 <span class="Heading">Wreath Product Decomposition</span></h4>
+
+<p>The returned embeddings, i.e. wreath product decompositions, map into specialised wreath product representations, the ones obtained by <code class="code">WreathProduct</code>. The main way for the User to look at a wreath product in a "human-readable" way is either by using an isomorphism from such a specialised wreath product representation to a generic representation via <code class="code">IsomorphismWreathProduct</code> or by using the low-level function <code class="code">ListWreathProductElement</code>.</p>
+
+<p><a id="X85112D567B917156" name="X85112D567B917156"></a></p>
+
+<h5>2.1-1 WreathProductDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; WreathProductDecomposition</code>( <var class="Arg">G</var>[, <var class="Arg">optrec</var>] )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">G</var> be a group or a recog node, and <var class="Arg">optrec</var> be an options record. Returns fail or a wreath product decomposition of <var class="Arg">G</var>, i.e. an embedding from <var class="Arg">G</var> to a natural wreath product, unless the <var class="Arg">debug</var> option is set to true (see below). The following components of <var class="Arg">optrec</var> are supported. Many more technical components are supported, however, they might be due to change during development. We therefore refer advanced users to the comments in the code to see all available options. Suppose that <span class="SimpleMath">\(G \leq K \wr H\)</span> with <span class="SimpleMath">\(H \leq \textrm{Sym}(m)\)</span>.</p>
+
+
+<dl>
+<dt><strong class="Mark"><code class="code">action</code></strong></dt>
+<dd><p><code class="keyw">"product action"</code> for permutation group, assume product action</p>
+
+<p><code class="keyw">"imprimitive action"</code> for permutation or matrix group, assume imprimitive action</p>
+
+<p><code class="keyw">fail</code> no assumptions <em>DEFAULT</em></p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">assumeSimpleBaseComponent</code></strong></dt>
+<dd><p><code class="keyw">true</code> assume <span class="SimpleMath">\(K\)</span> is non-abelian simple <em>DEFAULT</em></p>
+
+<p><code class="keyw">false</code> no assumptions</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">debug</code></strong></dt>
+<dd><p><code class="keyw">true</code> return record containing "res", "data" and "options":</p>
+
+
+<ul>
+<li><p><code class="keyw">"res"</code> is true if embedding was computed, otherwise fail</p>
+
+</li>
+<li><p><code class="keyw">"data"</code> is record containing all intermediate results of the computation</p>
+
+</li>
+<li><p><code class="keyw">"options"</code> is a copy of the used options record in the computation</p>
+
+</li>
+</ul>
+<p><code class="keyw">false</code> return fail or embedding <em>DEFAULT</em></p>
+
+</dd>
+</dl>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapInd_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,0 +1,36 @@
+  
+  
+                                   [1X WPrecog [101X
+  
+  
+     [1X provides constructive recognition algorithms for subgroups of wreath
+                  products via wreath product decompositions [101X
+  
+  
+                                      0.1
+  
+  
+                                 10 April 2026
+  
+  
+                                Friedrich Rober
+  
+  
+  
+  Friedrich Rober
+      Email:    [7Xmailto:friedrich.rober@rwth-aachen.de[107X
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (WPrecog)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+    1.1 [33X[0;0YOverview[133X
+    1.2 [33X[0;0YPrimitive Groups of type PA[133X
+  2 [33X[0;0YFunctions[133X
+    2.1 [33X[0;0YWreath Product Decomposition[133X
+      2.1-1 WreathProductDecomposition
+  
+  
+  [32X
