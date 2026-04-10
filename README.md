@@ -5,6 +5,8 @@
 
 The package WPrecog (<ins>**W**</ins>reath <ins>**P**</ins>roduct <ins>**recog**</ins>ition)
 provides recognition methods for groups abstractly isomorphic to certain (subgroups of) wreath products.
+The main functionality of this package is to compute a wreath product decomposition,
+i.e. an embedding from the input group into a natural wreath product where elements are encoded component-wise.
 
 The implementation is not production ready, and rather serves as a demonstration toolkit.
 

@@ -6,7 +6,7 @@
     WPrecog
   </Title>
   <Subtitle>
-    WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component
+    provides constructive recognition algorithms for subgroups of wreath products via wreath product decompositions
   </Subtitle>
   <Version>
     0.1
@@ -17,6 +17,6 @@
 
   </Author>
   <Date>
-    9 June 2021
+    10 April 2026
   </Date>
   </TitlePage>

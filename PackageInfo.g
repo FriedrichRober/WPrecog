@@ -9,9 +9,9 @@
 SetPackageInfo( rec(
 
 PackageName := "WPrecog",
-Subtitle := "WreathProductRecognition provides constructive recognition algorithms for wreath products with almost simple base component",
+Subtitle := "provides constructive recognition algorithms for subgroups of wreath products via wreath product decompositions",
 Version := "0.1",
-Date := "09/06/2021", # dd/mm/yyyy format
+Date := "10/04/2026", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -60,7 +60,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "WreathProductRecognition provides constructive recognition algorithms for wreath products with an almost simple base component",
+  LongTitle := "provides constructive recognition algorithms for subgroups of wreath products via wreath product decompositions",
 ),
 
 Dependencies := rec(

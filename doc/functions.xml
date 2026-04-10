@@ -6,7 +6,7 @@ Here we include a list of all functions that are provided to the User.<P/>
 <Section Label="Wreath Product Decomposition">
 <Heading>Wreath Product Decomposition</Heading>
 
-The returned embeddings (,i.e. wreath product decompositions,) map into specialised wreath product representations,
+The returned embeddings, i.e. wreath product decompositions, map into specialised wreath product representations,
 the ones obtained by <C>WreathProduct</C>.
 The main way for the User to look at a wreath product in a "human-readable" way
 is either by using an isomorphism from such a specialised wreath product representation
