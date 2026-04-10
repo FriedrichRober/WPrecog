@@ -66,6 +66,7 @@ BindGlobal( "WreathProductDecomposition", function(args...)
     options := rec(
         forSingleComponentGroup := rec(),
         forTopGroupDomain := rec(),
+        forImageFilter := rec(),
         action := fail,
         checkPrimitivity := false,
         assumeSimpleBaseComponent := true,
@@ -128,10 +129,14 @@ BindGlobal( "WreathProductDecomposition", function(args...)
 
     # TODO: handle this cleaner
     if IsMatrixGroup(Grp(ri)) then
+        Info(WPR_Warning, 1, "Matrix groups are not fully supported yet.");
         if options.action = "imprimitive action" then
             if Dimension(data.domain[1]) * data.m = DimensionOfMatrixGroup(Grp(ri)) then
                 data.B := Concatenation(List(data.domain, Basis))^(-1);
+                options.debug := true;
                 output.res := true;
+                Info(WPR_Warning, 1, "The returned data contains a base change B from the input group G into a canonical imprimitive matrix form.");
+                Info(WPR_Warning, 1, "Use for example via B := output.data.B;; Display(G.1^B);");
                 return WPR_ConvertOutput(output, options.debug);
             fi;
         fi;
