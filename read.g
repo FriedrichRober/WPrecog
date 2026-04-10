@@ -10,6 +10,10 @@
 BindGlobal("WPR_Info", NewInfoClass("WPR_Info"));
 SetInfoLevel(WPR_Info, 0);
 
+# Level 1: Shows Warninings of TODO items
+BindGlobal("WPR_Warning", NewInfoClass("WPR_Warning"));
+SetInfoLevel(WPR_Warning, 1);
+
 ReadPackage( "WPrecog", "gap/Utils.gi");
 ReadPackage( "WPrecog", "gap/Quick.gi");
 
@@ -29,6 +33,7 @@ ReadPackage( "WPrecog", "gap/subroutines/TopGroupDomainAndAction.gi");
 
 ReadPackage( "WPrecog", "gap/subroutines/Image/ViaConjugationAction.gi");
 ReadPackage( "WPrecog", "gap/subroutines/Image/ViaLinearAction.gi");
+ReadPackage( "WPrecog", "gap/subroutines/Image/ViaPermutationActionFilter.gi");
 ReadPackage( "WPrecog", "gap/subroutines/Image/ViaPermutationAction.gi");
 ReadPackage( "WPrecog", "gap/subroutines/Image.gi");
 
