@@ -67,6 +67,7 @@ BindGlobal("WPR_Embedding", function(ri, data, options)
 		return WPR_Projection(StripMemory(g), ri, data, options);
 	end;
 
+    # Error("Halt!");
     res := WPR_SetupImage(ri, data, options);
     if res = fail then
         return fail;
