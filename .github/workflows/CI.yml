@@ -33,7 +33,7 @@ jobs:
       - uses: gap-actions/setup-gap@v2
         with:
           GAPBRANCH: ${{ matrix.gap-branch }}
-          GAP_PKGS_TO_BUILD: "recog"
+          GAP_PKGS_TO_BUILD: "io orb recog"
       - uses: gap-actions/build-pkg@v1
       - uses: gap-actions/build-pkg-docs@v1
       - uses: gap-actions/run-pkg-tests@v3
