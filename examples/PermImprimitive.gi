@@ -20,6 +20,7 @@ G := W^(c^(-1));;
 # Recognition
 output := WreathProductDecomposition(RecogNode(G), rec(
     assumeSimpleBaseComponent := true,
+    debug := true,
 ));;
 res := output.res;
 emb := output.data.embedding;;

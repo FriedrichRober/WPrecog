@@ -26,7 +26,7 @@ emb := WreathProductDecomposition(RecogNode(G), rec(
     action := "product action",
 ));; # time ~ 10 seconds
 R := Range(emb);;
-ListWreathProductElement(R, ImageElm(emb, G.1)); # time ~ 2 seconds
+ListWreathProductElement(R, ImageElm(emb, G.1)); # time ~ 1 seconds
 
 # timer := Runtime();;
 # riG := RecogniseGroup(G);;
