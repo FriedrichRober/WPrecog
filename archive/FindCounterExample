@@ -1,0 +1,23 @@
+deg := 1000;
+iter := PrimitiveGroupsIterator(NrMovedPoints, [2..deg]);
+L := [];
+for G in iter do
+	if ONanScottType(G) = "4c" then
+		continue;
+	fi;
+	N := NrMovedPoints(G);
+	F := Collected(PartialFactorization(N, 0));
+	M := Gcd(List(F, f -> f[2])); # upper bound for top degree
+	if not M > 1 then
+		continue;
+	fi;
+	for m in DivisorsInt(M) do
+		if m = 1 then continue; fi;
+		n := Product(F, f -> f[1]^(f[2]/m));
+		if n < 5 then continue; fi;
+		Add(L, [G, n, m]);
+	od;
+od;
+
+Collected(List(L, l -> ONanScottType(l[1])));
+F := Filtered(L, l -> ONanScottType(l[1]) = "2");
