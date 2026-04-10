@@ -10,7 +10,7 @@ SetPackageInfo( rec(
 
 PackageName := "WPrecog",
 Subtitle := "provides constructive recognition algorithms for subgroups of wreath products via wreath product decompositions",
-Version := "0.1",
+Version := "0.2dev",
 Date := "10/04/2026", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
