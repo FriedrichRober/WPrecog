@@ -10,13 +10,13 @@
 #
 gap> START_TEST("wprecog01.tst");
 
-# doc/intro.xml:29-34
+# doc/intro.xml:30-35
 # Load package and utility file for constructing pseudo-random generators, etc.
 gap> LoadPackage("WPrecog", false);;
 gap> ReadPackage("WPrecog", "examples/Utils.gi");;
 gap> SetInfoLevel(InfoRecog, 0);
 
-# doc/intro.xml:39-53
+# doc/intro.xml:40-54
 # Construct components
 gap> K := PrimitiveGroup(13, 7); # PSL(3,3)
 L(3, 3)
@@ -31,7 +31,7 @@ gap> m := NrMovedPoints(H);
 gap> Length(GeneratorsOfGroup(H));
 2
 
-# doc/intro.xml:63-89
+# doc/intro.xml:64-90
 # Construct black box group G isomorphic to wreath product W
 gap> W := WreathProductProductAction(K, H);
 <permutation group of size 3978949139103744 with 10 generators>
@@ -58,7 +58,7 @@ gap> ListWreathProductElement(W, W.9);
 gap> ListWreathProductElement(W, W.10);
 [ (), (), (), (), (1,2)(3,4) ]
 
-# doc/intro.xml:99-107
+# doc/intro.xml:100-108
 # Construct black box group G isomorphic to wreath product W
 gap> G := RandomGroup(W)^PermList(QuickRandomPermutedList(n^m));
 <permutation group with 15 generators>
@@ -67,7 +67,7 @@ false
 gap> ListWreathProductElement(W, G.1);
 fail
 
-# doc/intro.xml:112-131
+# doc/intro.xml:113-132
 # Wreath Product Decomposition
 gap> phi := WreathProductDecomposition(G, rec(
 >     action := "product action"
