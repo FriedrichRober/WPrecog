@@ -6,9 +6,11 @@ Here we include a list of all functions that are provided to the User.<P/>
 <Section Label="Wreath Product Decomposition">
 <Heading>Wreath Product Decomposition</Heading>
 
+The returned embeddings (,i.e. wreath product decompositions,) map into specialised wreath product representations,
+the ones obtained by <C>WreathProduct</C>.
 The main way for the User to look at a wreath product in a "human-readable" way
-is by using an isomorphism from a specialised wreath product representation
-to a generic representation.
+is either by using an isomorphism from such a specialised wreath product representation
+to a generic representation via <C>IsomorphismWreathProduct</C> or by using the low-level function <C>ListWreathProductElement</C>.
 
 <ManSection>
 <Meth Name="WreathProductDecomposition" Arg="G[, optrec]"/>
@@ -16,9 +18,12 @@ to a generic representation.
 <Description>
 Let <A>G</A> be a group or a recog node,
 and <A>optrec</A> be an options record.
-Returns fail or a wreath product decomposition of <A>G</A>, i.e. an embedding from <A>G</A> to a natural wreath product.
+Returns fail or a wreath product decomposition of <A>G</A>, i.e. an embedding from <A>G</A> to a natural wreath product,
+unless the <A>debug</A> option is set to true (see below).
 
 The following components of <A>optrec</A> are supported.
+Many more technical components are supported, however, they might be due to change during development.
+We therefore refer advanced users to the comments in the code to see all available options.
 Suppose that <M>G \leq K \wr H</M> with <M>H \leq \textrm{Sym}(m)</M>.
 
 <List>

@@ -24,7 +24,8 @@ For instance, the computation of a wreath product decomposition of <M>\textrm{PS
 <Heading>Primitive Groups of type PA</Heading>
 
 We provide an example computation of a wreath product decomposition for a primitive permutation group <M>G</M> of type PA isomorphic to <M>\textrm{PSL}(3,3) \wr E(4)</M>.
-First, we load the package and an additional utility file that helps us to create pseudo-random generators. We also disable the additional display of information provided by the recog package.
+As a User, we simply need to load the package and everything works out of the box.
+However, in order to create this example, we additionally load a utility file that helps us to create pseudo-random generators. We also disable the additional display of information provided by the recog package.
 
 <Example><![CDATA[
 # Load package and utility file for constructing pseudo-random generators, etc.

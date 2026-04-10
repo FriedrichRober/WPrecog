@@ -97,7 +97,9 @@ end);
 ## - s is a single point on which G acts on
 ## - options are user options, see in code
 ##
-## Returns a supposedly orbit of s under G.
+## Returns a record with
+## - domain: supposedly orbit of s under G
+## - transversal: i-th entry maps s to the i-th point in domain
 ## The backbone of TopGroupDomainVia___.
 ##
 ##-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-##
