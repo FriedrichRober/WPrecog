@@ -3,18 +3,40 @@
 
 # The GAP package WPrecog
 
-TODO: add a description of your package; perhaps also instructions how how to
-install and use it, resp. where to find out more
+The package WPrecog (<ins>**W**</ins>reath <ins>**P**</ins>roduct <ins>**recog**</ins>ition)
+provides recognition methods for groups abstractly isomorphic to certain (subgroups of) wreath products.
+
+The implementation is not production ready, and rather serves as a demonstration toolkit.
 
 
-## Contact
+## Installation
 
-TODO: add info on how to contact you and/or how to report issues with your
-package
+**1.** To get the newest version of this GAP 4 package download the archive file `WPrecog-x.x.tar.gz` from
+>   <https://FriedrichRober.github.io/WPrecog/>
+
+**2.** Locate a `pkg/` directory where GAP searches for packages, see
+>   [9.2 GAP Root Directories](https://www.gap-system.org/Manuals/doc/ref/chap9.html#X7A4973627A5DB27D)
+
+in the GAP manual for more information.
+
+**3.** Unpack the archive file in such a `pkg/` directory
+which creates a subdirectory called `WPrecog/`.
+
+**4.** Now you can use the package within GAP by entering `LoadPackage("WPrecog");` on the GAP prompt.
+
+## Documentation
+
+You can read the documentation online at
+>   <https://FriedrichRober.github.io/WPrecog/doc/chap0.html>
+
+If you want to access it from within GAP by entering `?WPrecog` on the GAP prompt,
+you first have to build the manual by using `gap makedoc.g` from within the `WPrecog/` root directory.
+
+## Bug reports
+
+Please submit bug reports, feature requests and suggestions via our issue tracker at
+>  <https://github.com/gap-packages/WPE/issues>
 
 ## License
 
-TODO: Provide information on the license of your package. A license is
-important as it determines who has a right to distribute your package. The
-"default" license to consider is GNU General Public License v2 or later, as
-that is the license of GAP itself.
+WPrecog is free software you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. For details, see the file LICENSE distributed as part of this package or see the FSF's own site.
